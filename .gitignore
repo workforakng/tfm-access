@@ -1,0 +1,10 @@
+*.sh
+*.env
+*.config
+*.log
+*.pid
+*.key
+*.pem
+config*
+logs/
+*.txt
