@@ -57,7 +57,7 @@ html,body{height:100%;font-family:'Segoe UI',system-ui,sans-serif;background:#0f
 .cdb b{color:#6d4cb0}
 .spinner{width:32px;height:32px;border:3px solid rgba(167,139,250,0.2);border-top-color:#a78bfa;border-radius:50%;animation:spin .75s linear infinite;margin:0 auto 12px}
 @keyframes spin{to{transform:rotate(360deg)}}
-#toast{position:fixed;bottom:24px;right:20px;background:rgba(26,16,64,0.95);border:1px solid rgba(167,139,250,0.3);color:#c4b5fd;padding:10px 18px;border-radius:10px;font-size:13px;box-shadow:0 4px 24px rgba(0,0,0,0.6);display:none;z-index:99999}
+#toast{position:fixed;bottom:24px;right:20px;background:rgba(26,16,64,0.95);border:1px solid rgba(167,139,250,0.3);color:#c4b5fd;padding:10px 18px;border-radius:10px;font-size:13px;display:none;z-index:99999}
 #toast.show{display:block}
 </style>
 </head>
@@ -88,11 +88,11 @@ html,body{height:100%;font-family:'Segoe UI',system-ui,sans-serif;background:#0f
   <div class="main-area">
     <div class="fm-card" id="loadingCard">
       <div class="spinner"></div>
-      <p style="color:#555;font-size:.9rem">Verifying...</p>
+      <p style="color:#555;font-size:.9rem">Fetching connection...</p>
     </div>
     <div class="fm-card" id="mainCard" style="display:none">
       <h2>&#128193; Termux File Manager</h2>
-      <div class="url-box" id="urlDisplay" onclick="copyURL()" title="Click to copy">loading...</div>
+      <div class="url-box" id="urlDisplay" onclick="copyURL()" title="Click to copy">-</div>
       <button class="open-btn" onclick="openFM()">&#128640; Open File Manager</button>
       <button class="copy-btn" id="copyBtn" onclick="copyURL()">&#128203; Copy URL</button>
       <div class="port-override">
@@ -109,59 +109,61 @@ html,body{height:100%;font-family:'Segoe UI',system-ui,sans-serif;background:#0f
 <div id="toast"></div>
 
 <script>
-var PASS_HASH   = "2905b73396edbca62093e0f31accee239598a6d318fb0a24da8a29f130d75571";
-var GIST_ID     = "c9b44b8bdbfe29d8b01ee3174605c8c1";
-    var GIST_RAW    = "https://gist.githubusercontent.com/workforakng/c9b44b8bdbfe29d8b01ee3174605c8c1/raw/12fdf2ae4a6c886c1321b5af5b8f8bcc2965049e/tfm.json";
-var LOCK_KEY    = "tfm_unlocked";
-var LOCK_HOURS  = 43200000;
-var MAX_ATT     = 5;
-var LOCKOUT_MS  = 90000;
-var activePort  = 9004;
-var CURRENT_IP  = "";
-var attempts    = 0;
-var lockedUntil = 0;
-var lockTimer   = null;
-var cdVal       = 300;
-var cdTimer     = null;
+var PASS_HASH    = "2905b73396edbca62093e0f31accee239598a6d318fb0a24da8a29f130d75571";
+var WORKER_URL   = "https://tfm.workforakng.workers.dev";
+var LOCK_KEY     = "tfm_unlocked";
+var LOCK_HOURS   = 43200000;
+var MAX_ATT      = 5;
+var LOCKOUT_MS   = 90000;
+var activePort   = 9004;
+var CURRENT_IP   = "";
+var attempts     = 0;
+var lockedUntil  = 0;
+var lockTimer    = null;
+var cdVal        = 300;
+var cdTimer      = null;
+var userHash     = "";
 
-async function sha256(msg) {
-    var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(msg));
-    return Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,"0"); }).join("");
+async function sha256(msg){
+    var buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(msg));
+    return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,"0");}).join("");
 }
 
-function buildURL(ip,port){ return "http://"+ip+":"+port; }
+function buildURL(ip,port){return "http://"+ip+":"+port;}
 
 function setLockMsg(msg,cls){
     var el=document.getElementById("lockMsg");
-    el.textContent=msg; el.className="lock-msg "+(cls||"");
+    el.textContent=msg;el.className="lock-msg "+(cls||"");
 }
 
 async function tryUnlock(){
     var now=Date.now();
-    if(now<lockedUntil){setLockMsg("&#9940; Locked. Wait "+Math.ceil((lockedUntil-now)/1000)+"s","locked");return;}
+    if(now<lockedUntil){setLockMsg("Locked. Wait "+Math.ceil((lockedUntil-now)/1000)+"s","locked");return;}
     var val=document.getElementById("lockInput").value;
     var hash=await sha256(val);
     if(hash===PASS_HASH){
+        userHash=hash;
         localStorage.setItem(LOCK_KEY,String(Date.now()));
+        localStorage.setItem("tfm_hash",hash);
         showDashboard();
     } else {
         attempts++;
         var inp=document.getElementById("lockInput");
-        inp.classList.add("shake"); inp.value="";
+        inp.classList.add("shake");inp.value="";
         setTimeout(function(){inp.classList.remove("shake");inp.focus();},450);
         if(attempts>=MAX_ATT){
             lockedUntil=Date.now()+LOCKOUT_MS;
             document.getElementById("lockBtn").disabled=true;
-            setLockMsg("&#9940; Too many attempts. Locked 90s.","locked");
+            setLockMsg("Too many attempts. Locked 90s.","locked");
             var rem=Math.ceil(LOCKOUT_MS/1000);
             lockTimer=setInterval(function(){
                 rem--;
                 if(rem<=0){clearInterval(lockTimer);document.getElementById("lockBtn").disabled=false;attempts=0;setLockMsg("","");}
-                else setLockMsg("&#9940; Locked for "+rem+"s","locked");
+                else setLockMsg("Locked for "+rem+"s","locked");
             },1000);
         } else {
             var left=MAX_ATT-attempts;
-            setLockMsg("&#10007; Wrong. "+left+" attempt"+(left===1?"":"s")+" left.","error");
+            setLockMsg("Wrong. "+left+" attempt"+(left===1?"":"s")+" left.","error");
         }
     }
 }
@@ -171,16 +173,21 @@ function showDashboard(){
     document.getElementById("appWrapper").classList.add("visible");
     document.getElementById("loadingCard").style.display="block";
     document.getElementById("mainCard").style.display="none";
-    fetchGist();
+    fetchData();
     startCountdown();
 }
 
-function fetchGist(){
-    fetch(GIST_RAW+"?nc="+Date.now())
-    .then(function(r){return r.json();})
-    .then(function(d){
-        var content=d.files["tfm.json"].content;
-        var data=JSON.parse(content);
+function fetchData(){
+    fetch(WORKER_URL,{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({hash:userHash})
+    })
+    .then(function(r){
+        if(!r.ok)throw new Error("HTTP "+r.status);
+        return r.json();
+    })
+    .then(function(data){
         CURRENT_IP=data.ip;
         activePort=data.port||9004;
         document.getElementById("portInput").value=activePort;
@@ -190,13 +197,15 @@ function fetchGist(){
         document.getElementById("mainCard").style.display="block";
     })
     .catch(function(e){
-        document.getElementById("loadingCard").innerHTML="<p style='color:#f87171'>&#10007; Failed to load. Retry in 10s.</p>";
-        setTimeout(fetchGist,10000);
+        document.getElementById("loadingCard").innerHTML="<p style='color:#f87171'>Failed to load. Retry in 10s.<br><small>"+e.message+"</small></p>";
+        setTimeout(fetchData,10000);
     });
 }
 
 function doLogout(){
     localStorage.removeItem(LOCK_KEY);
+    localStorage.removeItem("tfm_hash");
+    userHash="";
     document.getElementById("lockScreen").style.display="flex";
     document.getElementById("appWrapper").classList.remove("visible");
     clearInterval(cdTimer);
@@ -204,32 +213,32 @@ function doLogout(){
     document.getElementById("lockInput").focus();
 }
 
-function openFM(){ window.open(buildURL(CURRENT_IP,activePort),"_blank"); }
+function openFM(){window.open(buildURL(CURRENT_IP,activePort),"_blank");}
 
 function copyURL(){
     var url=buildURL(CURRENT_IP,activePort);
     var btn=document.getElementById("copyBtn");
     if(navigator.clipboard&&navigator.clipboard.writeText){
         navigator.clipboard.writeText(url).then(function(){
-            btn.textContent="&#10003; Copied!"; btn.classList.add("copied");
-            setTimeout(function(){btn.textContent="&#128203; Copy URL";btn.classList.remove("copied");},2000);
+            btn.textContent="Copied!";btn.classList.add("copied");
+            setTimeout(function(){btn.textContent="Copy URL";btn.classList.remove("copied");},2000);
         }).catch(function(){prompt("Copy URL:",url);});
-    } else { prompt("Copy URL:",url); }
+    } else {prompt("Copy URL:",url);}
 }
 
 function changePort(){
     var val=document.getElementById("portInput").value.trim();
     var err=document.getElementById("portErr");
-    if(!/^\d+$/.test(val)){err.textContent="&#10007; Numbers only";return;}
+    if(!/^\d+$/.test(val)){err.textContent="Numbers only";return;}
     var p=parseInt(val,10);
-    if(p<1024||p>65535){err.textContent="&#10007; Must be 1024-65535";return;}
-    err.textContent=""; activePort=p;
+    if(p<1024||p>65535){err.textContent="Must be 1024-65535";return;}
+    err.textContent="";activePort=p;
     document.getElementById("urlDisplay").textContent=buildURL(CURRENT_IP,activePort);
-    showToast("&#10003; Port set to "+p);
+    showToast("Port set to "+p);
 }
 
 function startCountdown(){
-    cdVal=300; clearInterval(cdTimer);
+    cdVal=300;clearInterval(cdTimer);
     cdTimer=setInterval(function(){
         cdVal--;
         var e1=document.getElementById("ctTimer");
@@ -240,19 +249,24 @@ function startCountdown(){
     },1000);
 }
 
-function resetCountdown(){ cdVal=300; }
+function resetCountdown(){cdVal=300;}
 
 function showToast(msg){
     var t=document.getElementById("toast");
-    t.textContent=msg; t.classList.add("show");
+    t.textContent=msg;t.classList.add("show");
     clearTimeout(window._tt);
     window._tt=setTimeout(function(){t.classList.remove("show");},2500);
 }
 
 (function(){
     var ts=localStorage.getItem(LOCK_KEY);
-    if(ts&&(Date.now()-parseInt(ts,10))<LOCK_HOURS){ showDashboard(); }
-    else{ document.getElementById("lockInput").focus(); }
+    var h=localStorage.getItem("tfm_hash");
+    if(ts&&h&&(Date.now()-parseInt(ts,10))<LOCK_HOURS){
+        userHash=h;
+        showDashboard();
+    } else {
+        document.getElementById("lockInput").focus();
+    }
 })();
 
 ["mousemove","keydown","click","touchstart","scroll"].forEach(function(ev){
