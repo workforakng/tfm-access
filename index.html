@@ -13,13 +13,13 @@ html,body{height:100%;font-family:'Segoe UI',system-ui,sans-serif;background:#0f
 .lock-icon{font-size:52px;display:block;margin-bottom:20px}
 .lock-title{font-size:22px;font-weight:700;color:#c4b5fd;margin-bottom:6px}
 .lock-sub{font-size:13px;color:#4a4a6a;margin-bottom:28px}
-.lock-input{width:100%;padding:14px 18px;background:rgba(255,255,255,0.05);border:1px solid rgba(167,139,250,0.3);border-radius:10px;color:#e0e0e0;font-size:16px;text-align:center;letter-spacing:3px;outline:none;transition:border-color .2s,box-shadow .2s;margin-bottom:14px}
+.lock-input{width:100%;padding:14px 18px;background:rgba(255,255,255,0.05);border:1px solid rgba(167,139,250,0.3);border-radius:10px;color:#e0e0e0;font-size:16px;text-align:center;letter-spacing:3px;outline:none;transition:border-color .2s;margin-bottom:14px}
 .lock-input:focus{border-color:#a78bfa;box-shadow:0 0 0 3px rgba(167,139,250,0.15)}
 .lock-input.shake{animation:shake .4s ease;border-color:#f87171}
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
 .lock-btn{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;transition:all .25s;box-shadow:0 4px 20px rgba(124,58,237,0.4)}
 .lock-btn:hover{background:linear-gradient(135deg,#6d28d9,#9333ea);transform:translateY(-2px)}
-.lock-btn:disabled{background:#333;box-shadow:none;cursor:not-allowed;transform:none}
+.lock-btn:disabled{background:#333;box-shadow:none;cursor:not-allowed}
 .lock-msg{margin-top:14px;font-size:12px;min-height:18px}
 .lock-msg.error{color:#f87171}
 .lock-msg.locked{color:#f87171;font-weight:600}
@@ -27,7 +27,7 @@ html,body{height:100%;font-family:'Segoe UI',system-ui,sans-serif;background:#0f
 #appWrapper.visible{display:flex}
 .topbar{background:linear-gradient(90deg,#13103a,#1c1055,#13103a);border-bottom:1px solid rgba(167,139,250,0.18);padding:8px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
 .tb-title{font-size:15px;font-weight:700;color:#c4b5fd}
-.badge{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap}
+.badge{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500}
 .badge-live{background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.35);color:#6ee7b7}
 .badge-timer{background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);color:#fcd34d}
 .live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#10b981;margin-right:4px;animation:livepulse 2s infinite}
@@ -36,20 +36,17 @@ html,body{height:100%;font-family:'Segoe UI',system-ui,sans-serif;background:#0f
 .btn-ghost{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#aaa}
 .btn-ghost:hover{background:rgba(255,255,255,0.12);color:#eee}
 .btn-purple{background:#7c3aed;color:#fff}
-.btn-purple:hover{background:#6d28d9;transform:translateY(-1px)}
+.btn-purple:hover{background:#6d28d9}
 .main-area{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 16px;background:#0f0f1a}
 .fm-card{width:100%;max-width:480px;background:rgba(255,255,255,0.03);border:1px solid rgba(167,139,250,0.2);border-radius:18px;padding:32px 28px;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.5)}
 .fm-card h2{font-size:1.25rem;color:#c4b5fd;margin-bottom:20px}
 .url-box{background:rgba(0,0,0,0.3);border:1px solid rgba(167,139,250,0.2);border-radius:10px;padding:14px 18px;font-family:monospace;font-size:1rem;color:#a78bfa;word-break:break-all;margin-bottom:20px;cursor:pointer;user-select:all}
-.url-box:hover{border-color:#a78bfa}
 .open-btn{display:block;width:100%;padding:16px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;border-radius:12px;font-size:1.05rem;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(124,58,237,0.4);margin-bottom:12px;transition:all .25s}
 .open-btn:hover{background:linear-gradient(135deg,#6d28d9,#9333ea);transform:translateY(-2px)}
-.copy-btn{display:block;width:100%;padding:11px;background:rgba(255,255,255,0.05);border:1px solid rgba(167,139,250,0.25);border-radius:10px;color:#c4b5fd;font-size:.9rem;font-weight:600;cursor:pointer;margin-bottom:14px;transition:all .2s}
-.copy-btn:hover{background:rgba(167,139,250,0.1)}
+.copy-btn{display:block;width:100%;padding:11px;background:rgba(255,255,255,0.05);border:1px solid rgba(167,139,250,0.25);border-radius:10px;color:#c4b5fd;font-size:.9rem;font-weight:600;cursor:pointer;margin-bottom:14px}
 .copy-btn.copied{color:#6ee7b7;border-color:rgba(16,185,129,0.35);background:rgba(16,185,129,0.08)}
 .port-override{display:flex;gap:8px;margin-bottom:6px}
 .port-override input{flex:1;padding:9px 12px;background:rgba(255,255,255,0.05);border:1px solid rgba(167,139,250,0.25);border-radius:8px;color:#e0e0e0;font-size:.9rem;outline:none}
-.port-override input:focus{border-color:#a78bfa}
 .port-err{font-size:.8rem;color:#f87171;min-height:16px;text-align:left;margin-bottom:8px}
 .meta{font-size:.75rem;color:#3a3a6a;margin-top:10px}
 .meta span{color:#555}
@@ -62,18 +59,16 @@ html,body{height:100%;font-family:'Segoe UI',system-ui,sans-serif;background:#0f
 </style>
 </head>
 <body>
-
 <div id="lockScreen">
   <div class="lock-card">
     <span class="lock-icon">&#128272;</span>
     <div class="lock-title">Secure Access</div>
     <div class="lock-sub">Enter access code to continue</div>
-    <input type="password" id="lockInput" class="lock-input" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" maxlength="64" autocomplete="off" onkeydown="if(event.key==='Enter')tryUnlock()">
+    <input type="password" id="lockInput" class="lock-input" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" maxlength="64" autocomplete="off" onkeydown="if(event.key==='Enter')tryUnlock()">
     <button class="lock-btn" id="lockBtn" onclick="tryUnlock()">Unlock &#8594;</button>
     <div class="lock-msg" id="lockMsg"></div>
   </div>
 </div>
-
 <div id="appWrapper">
   <div class="topbar">
     <div style="display:flex;align-items:center;gap:10px">
@@ -92,186 +87,91 @@ html,body{height:100%;font-family:'Segoe UI',system-ui,sans-serif;background:#0f
     </div>
     <div class="fm-card" id="mainCard" style="display:none">
       <h2>&#128193; Termux File Manager</h2>
-      <div class="url-box" id="urlDisplay" onclick="copyURL()" title="Click to copy">-</div>
+      <div class="url-box" id="urlDisplay" onclick="copyURL()">-</div>
       <button class="open-btn" onclick="openFM()">&#128640; Open File Manager</button>
       <button class="copy-btn" id="copyBtn" onclick="copyURL()">&#128203; Copy URL</button>
       <div class="port-override">
-        <input type="text" id="portInput" placeholder="Override port (1024-65535)" onkeydown="if(event.key==='Enter')changePort()"/>
+        <input type="text" id="portInput" placeholder="Override port" onkeydown="if(event.key==='Enter')changePort()"/>
         <button class="btn btn-purple" onclick="changePort()">Apply</button>
       </div>
       <div class="port-err" id="portErr"></div>
       <div class="meta">Last updated: <span id="tsDisplay">-</span></div>
-      <div class="cdb">Auto-refresh in <b><span id="ctTimer2">300</span>s</b> &#183; resets on activity</div>
+      <div class="cdb">Auto-refresh in <b><span id="ctTimer2">300</span>s</b></div>
     </div>
   </div>
 </div>
-
 <div id="toast"></div>
-
 <script>
-var PASS_HASH    = "2905b73396edbca62093e0f31accee239598a6d318fb0a24da8a29f130d75571";
-var WORKER_URL   = "https://tfm.workforakng.workers.dev";
-var LOCK_KEY     = "tfm_unlocked";
-var LOCK_HOURS   = 43200000;
-var MAX_ATT      = 5;
-var LOCKOUT_MS   = 90000;
-var activePort   = 9004;
-var CURRENT_IP   = "";
-var attempts     = 0;
-var lockedUntil  = 0;
-var lockTimer    = null;
-var cdVal        = 300;
-var cdTimer      = null;
-var userHash     = "";
-
-async function sha256(msg){
-    var buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(msg));
-    return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,"0");}).join("");
-}
-
+var PASS_HASH="2905b73396edbca62093e0f31accee239598a6d318fb0a24da8a29f130d75571";
+var WORKER_URL="https://tfm.workforakng.workers.dev";
+var LOCK_KEY="tfm_unlocked";
+var LOCK_HOURS=43200000;
+var MAX_ATT=5;
+var LOCKOUT_MS=90000;
+var activePort=9004;
+var CURRENT_IP="";
+var attempts=0;
+var lockedUntil=0;
+var lockTimer=null;
+var cdVal=300;
+var cdTimer=null;
+var userHash="";
+async function sha256(msg){var buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(msg));return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,"0");}).join("");}
 function buildURL(ip,port){return "http://"+ip+":"+port;}
-
-function setLockMsg(msg,cls){
-    var el=document.getElementById("lockMsg");
-    el.textContent=msg;el.className="lock-msg "+(cls||"");
-}
-
+function setLockMsg(msg,cls){var el=document.getElementById("lockMsg");el.textContent=msg;el.className="lock-msg "+(cls||"");}
 async function tryUnlock(){
-    var now=Date.now();
-    if(now<lockedUntil){setLockMsg("Locked. Wait "+Math.ceil((lockedUntil-now)/1000)+"s","locked");return;}
-    var val=document.getElementById("lockInput").value;
-    var hash=await sha256(val);
-    if(hash===PASS_HASH){
-        userHash=hash;
-        localStorage.setItem(LOCK_KEY,String(Date.now()));
-        localStorage.setItem("tfm_hash",hash);
-        showDashboard();
+  var now=Date.now();
+  if(now<lockedUntil){setLockMsg("Locked. Wait "+Math.ceil((lockedUntil-now)/1000)+"s","locked");return;}
+  var val=document.getElementById("lockInput").value;
+  var hash=await sha256(val);
+  if(hash===PASS_HASH){
+    userHash=hash;localStorage.setItem(LOCK_KEY,String(Date.now()));localStorage.setItem("tfm_hash",hash);showDashboard();
+  } else {
+    attempts++;
+    var inp=document.getElementById("lockInput");inp.classList.add("shake");inp.value="";
+    setTimeout(function(){inp.classList.remove("shake");inp.focus();},450);
+    if(attempts>=MAX_ATT){
+      lockedUntil=Date.now()+LOCKOUT_MS;document.getElementById("lockBtn").disabled=true;
+      setLockMsg("Too many attempts. Locked 90s.","locked");
+      var rem=Math.ceil(LOCKOUT_MS/1000);
+      lockTimer=setInterval(function(){rem--;if(rem<=0){clearInterval(lockTimer);document.getElementById("lockBtn").disabled=false;attempts=0;setLockMsg("","");}else setLockMsg("Locked for "+rem+"s","locked");},1000);
     } else {
-        attempts++;
-        var inp=document.getElementById("lockInput");
-        inp.classList.add("shake");inp.value="";
-        setTimeout(function(){inp.classList.remove("shake");inp.focus();},450);
-        if(attempts>=MAX_ATT){
-            lockedUntil=Date.now()+LOCKOUT_MS;
-            document.getElementById("lockBtn").disabled=true;
-            setLockMsg("Too many attempts. Locked 90s.","locked");
-            var rem=Math.ceil(LOCKOUT_MS/1000);
-            lockTimer=setInterval(function(){
-                rem--;
-                if(rem<=0){clearInterval(lockTimer);document.getElementById("lockBtn").disabled=false;attempts=0;setLockMsg("","");}
-                else setLockMsg("Locked for "+rem+"s","locked");
-            },1000);
-        } else {
-            var left=MAX_ATT-attempts;
-            setLockMsg("Wrong. "+left+" attempt"+(left===1?"":"s")+" left.","error");
-        }
+      var left=MAX_ATT-attempts;setLockMsg("Wrong. "+left+" attempt"+(left===1?"":"s")+" left.","error");
     }
+  }
 }
-
 function showDashboard(){
-    document.getElementById("lockScreen").style.display="none";
-    document.getElementById("appWrapper").classList.add("visible");
-    document.getElementById("loadingCard").style.display="block";
-    document.getElementById("mainCard").style.display="none";
-    fetchData();
-    startCountdown();
+  document.getElementById("lockScreen").style.display="none";
+  document.getElementById("appWrapper").classList.add("visible");
+  document.getElementById("loadingCard").style.display="block";
+  document.getElementById("mainCard").style.display="none";
+  fetchData();startCountdown();
 }
-
 function fetchData(){
-    fetch(WORKER_URL,{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({hash:userHash})
-    })
-    .then(function(r){
-        if(!r.ok)throw new Error("HTTP "+r.status);
-        return r.json();
-    })
-    .then(function(data){
-        CURRENT_IP=data.ip;
-        activePort=data.port||9004;
-        document.getElementById("portInput").value=activePort;
-        document.getElementById("urlDisplay").textContent=buildURL(CURRENT_IP,activePort);
-        document.getElementById("tsDisplay").textContent=data.ts||"-";
-        document.getElementById("loadingCard").style.display="none";
-        document.getElementById("mainCard").style.display="block";
-    })
-    .catch(function(e){
-        document.getElementById("loadingCard").innerHTML="<p style='color:#f87171'>Failed to load. Retry in 10s.<br><small>"+e.message+"</small></p>";
-        setTimeout(fetchData,10000);
-    });
-}
-
-function doLogout(){
-    localStorage.removeItem(LOCK_KEY);
-    localStorage.removeItem("tfm_hash");
-    userHash="";
-    document.getElementById("lockScreen").style.display="flex";
-    document.getElementById("appWrapper").classList.remove("visible");
-    clearInterval(cdTimer);
-    document.getElementById("lockInput").value="";
-    document.getElementById("lockInput").focus();
-}
-
-function openFM(){window.open(buildURL(CURRENT_IP,activePort),"_blank");}
-
-function copyURL(){
-    var url=buildURL(CURRENT_IP,activePort);
-    var btn=document.getElementById("copyBtn");
-    if(navigator.clipboard&&navigator.clipboard.writeText){
-        navigator.clipboard.writeText(url).then(function(){
-            btn.textContent="Copied!";btn.classList.add("copied");
-            setTimeout(function(){btn.textContent="Copy URL";btn.classList.remove("copied");},2000);
-        }).catch(function(){prompt("Copy URL:",url);});
-    } else {prompt("Copy URL:",url);}
-}
-
-function changePort(){
-    var val=document.getElementById("portInput").value.trim();
-    var err=document.getElementById("portErr");
-    if(!/^\d+$/.test(val)){err.textContent="Numbers only";return;}
-    var p=parseInt(val,10);
-    if(p<1024||p>65535){err.textContent="Must be 1024-65535";return;}
-    err.textContent="";activePort=p;
+  fetch(WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({hash:userHash})})
+  .then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
+  .then(function(data){
+    CURRENT_IP=data.ip;activePort=data.port||9004;
+    document.getElementById("portInput").value=activePort;
     document.getElementById("urlDisplay").textContent=buildURL(CURRENT_IP,activePort);
-    showToast("Port set to "+p);
+    document.getElementById("tsDisplay").textContent=data.ts||"-";
+    document.getElementById("loadingCard").style.display="none";
+    document.getElementById("mainCard").style.display="block";
+  })
+  .catch(function(e){
+    document.getElementById("loadingCard").innerHTML="<p style='color:#f87171'>Failed to load. Retry in 10s.<br><small>"+e.message+"</small></p>";
+    setTimeout(fetchData,10000);
+  });
 }
-
-function startCountdown(){
-    cdVal=300;clearInterval(cdTimer);
-    cdTimer=setInterval(function(){
-        cdVal--;
-        var e1=document.getElementById("ctTimer");
-        var e2=document.getElementById("ctTimer2");
-        if(e1)e1.textContent=cdVal;
-        if(e2)e2.textContent=cdVal;
-        if(cdVal<=0){clearInterval(cdTimer);location.reload(true);}
-    },1000);
-}
-
+function doLogout(){localStorage.removeItem(LOCK_KEY);localStorage.removeItem("tfm_hash");userHash="";document.getElementById("lockScreen").style.display="flex";document.getElementById("appWrapper").classList.remove("visible");clearInterval(cdTimer);document.getElementById("lockInput").value="";document.getElementById("lockInput").focus();}
+function openFM(){window.open(buildURL(CURRENT_IP,activePort),"_blank");}
+function copyURL(){var url=buildURL(CURRENT_IP,activePort);var btn=document.getElementById("copyBtn");if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(function(){btn.textContent="Copied!";btn.classList.add("copied");setTimeout(function(){btn.textContent="Copy URL";btn.classList.remove("copied");},2000);}).catch(function(){prompt("Copy URL:",url);});}else{prompt("Copy URL:",url);}}
+function changePort(){var val=document.getElementById("portInput").value.trim();var err=document.getElementById("portErr");if(!/^d+$/.test(val)){err.textContent="Numbers only";return;}var p=parseInt(val,10);if(p<1024||p>65535){err.textContent="Must be 1024-65535";return;}err.textContent="";activePort=p;document.getElementById("urlDisplay").textContent=buildURL(CURRENT_IP,activePort);showToast("Port set to "+p);}
+function startCountdown(){cdVal=300;clearInterval(cdTimer);cdTimer=setInterval(function(){cdVal--;var e1=document.getElementById("ctTimer");var e2=document.getElementById("ctTimer2");if(e1)e1.textContent=cdVal;if(e2)e2.textContent=cdVal;if(cdVal<=0){clearInterval(cdTimer);location.reload(true);}},1000);}
 function resetCountdown(){cdVal=300;}
-
-function showToast(msg){
-    var t=document.getElementById("toast");
-    t.textContent=msg;t.classList.add("show");
-    clearTimeout(window._tt);
-    window._tt=setTimeout(function(){t.classList.remove("show");},2500);
-}
-
-(function(){
-    var ts=localStorage.getItem(LOCK_KEY);
-    var h=localStorage.getItem("tfm_hash");
-    if(ts&&h&&(Date.now()-parseInt(ts,10))<LOCK_HOURS){
-        userHash=h;
-        showDashboard();
-    } else {
-        document.getElementById("lockInput").focus();
-    }
-})();
-
-["mousemove","keydown","click","touchstart","scroll"].forEach(function(ev){
-    document.addEventListener(ev,resetCountdown,{passive:true});
-});
+function showToast(msg){var t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(window._tt);window._tt=setTimeout(function(){t.classList.remove("show");},2500);}
+(function(){var ts=localStorage.getItem(LOCK_KEY);var h=localStorage.getItem("tfm_hash");if(ts&&h&&(Date.now()-parseInt(ts,10))<LOCK_HOURS){userHash=h;showDashboard();}else{document.getElementById("lockInput").focus();}})();
+["mousemove","keydown","click","touchstart","scroll"].forEach(function(ev){document.addEventListener(ev,resetCountdown,{passive:true});});
 </script>
 </body>
 </html>
